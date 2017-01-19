@@ -1,10 +1,12 @@
 var url = "https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json"
 
-var margin = 70,
-h = 400,
-w = 700;
+var margin = 0,
+h = 800,
+w = 1000;
 
 var svg = d3.select("body").append("svg").attr("width", w).attr("height", h).append("g").attr("transform", `translate(${margin},${margin})`)
+
+var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 d3.json(url , function(data){
 
@@ -12,8 +14,8 @@ d3.json(url , function(data){
   .force("link", d3.forceLink().id(function(d){return d.index}))
   .force("charge", d3.forceManyBody())
   .force("center", d3.forceCenter(w/2, h/2))
-  .force("y", d3.forceY(1))
-  .force("x", d3.forceX(1))
+  .force("y", d3.forceY(5))
+  .force("x", d3.forceX(10))
 
   var link = svg.append("g")
         .attr("class", "links")
@@ -26,6 +28,9 @@ d3.json(url , function(data){
         .selectAll("circle")
         .data(data.nodes).enter().append("circle")
         .attr("r", 5)
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
+        .attr("fill", function(d){return color(d.country)})
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)
