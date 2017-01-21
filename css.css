@@ -1,4 +1,40 @@
-html, body, #graph {
+#graph {
     width: 900px;
     height: 500px;
+  margin: 0 auto
+}
+
+image {
+  height: 20px;
+  width: 20px;
+stroke: black;
+stroke-width: 2
+
+}
+
+.d3-tip {
+  background-color: rgba(0,0,0, 0.7);
+  font-size: 30px;
+  color: white;
+  height: 40px;
+  width: auto;
+  text-align: center;
+  padding: 5px
+
+}
+
+body {
+  background-color: skyblue
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  width: auto;
+  height: 100px;
+    margin: 0 auto
+}
+
+.subTitle {
+  font-size: 30px
 }
