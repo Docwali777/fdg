@@ -1,24 +1,26 @@
 var url = "https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json";
 
-var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
 var margin = 70,
   h = 900,
   w = 1000;
 
 
-var svg = d3.select("#graph").append("svg").attr("width", w).attr("height", h).append("g").attr("transform",
+var svg = d3.select("body").append("svg").attr("width", w).attr("height", h).append("g").attr("transform",
  `translate(${margin}, 0)`);
 
 //var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 d3.json(url, function(data) {
 
-var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
-  data.nodes.forEach(function(data){var d = data.nodes})
-if(d.code === "xk"){return d.code = Kosovo}
-  return d.country; });
-console.log(data.nodes)
+var tip = d3.tip().attr('class', 'd3-tip').html(function(d){
+return d.country
+
+})
+
+
+
+
 
 
   var simulation = d3.forceSimulation()
@@ -40,26 +42,24 @@ console.log(data.nodes)
 
 
 
+
 var node = svg.selectAll("image")
               .data(data.nodes)
               .enter().append("image")
               .attr("xlink:href", function(d){
-                      if(d.code === "xk"){
-                        d.code = "cs"
-                        return `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/cs.svg`}
+                      if(d.code === "xk" || d.code=== "ir"){return `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/tl.svg`}
 
                 return `https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/4x3/${d.code}.svg`})
                 .attr("y", -20)
                 .attr("x", -20)
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide)
                 .call(d3.drag()
                   .on("start", dragstarted)
                   .on("drag", dragged)
-                  .on("end", dragended));
+                  .on("end", dragended))
+                  .on('mouseover', tip.show)
+ .on('mouseout', tip.hide);
 
-
-
+node.call(tip);
 
 
 
